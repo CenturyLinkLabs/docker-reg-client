@@ -15,17 +15,23 @@ const (
 
 // Client manages communication with the Docker Registry API.
 type Client struct {
+	// BaseURL represents the base URL for the Registry API.
+	// Defaults to "https://index.docker.io/v1/".
 	BaseURL *url.URL
-	client  *http.Client
 
 	// Hub gives access to the Docker Hub API for retrieving auth tokens.
 	Hub *HubService
+
 	// Image gives access to the /images part of the Registry API.
 	Image *ImageService
+
 	// Repository gives access to the /repositories part of the Registry API.
 	Repository *RepositoryService
+
 	// Search gives access to the /search part of the Registry API.
 	Search *SearchService
+
+	client *http.Client
 }
 
 // NewClient returns a new Docker Registry API client.
