@@ -22,7 +22,7 @@ authentication headers will be passed along with the request:
 
 	auth := registry.BasicAuth{"user", "pass"}
 
-	tags, err := c.Repository.ListTags("ubuntu", auth)
+	err := c.Repository.SetTag("foo/bar", "abc123", "1.0", auth)
 
 When using the client to interact with the Docker Hub there is an extra call
 that you need to make. You need to use your basic auth credentials to first
@@ -33,9 +33,9 @@ Registry API:
 
 	basicAuth := registry.BasicAuth{"user", "pass"}
 
-	tokenAuth, err := c.Hub.GetReadToken("ubuntu", basicAuth)
+	tokenAuth, err := c.Hub.GetWriteToken("foo/bar", basicAuth)
 
-	tags, err := c.Repository.ListTags("ubuntu", tokenAuth)
+	err := c.Repository.SetTag("foo/bar", "abc123", "1.0", tokenAuth)
 
 Depending on the API you're trying to use, you may need to first retreive either
 a read, write or delete token.
