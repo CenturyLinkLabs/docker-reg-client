@@ -22,6 +22,17 @@ func (h *HubService) GetReadToken(repo string) (*TokenAuth, error) {
 	return h.do(req)
 }
 
+// Retrieves a read-only token from the Docker Hub for the specified private repo.
+func (h *HubService) GetReadTokenWithAuth(repo string, auth Authenticator) (*TokenAuth, error) {
+	path := fmt.Sprintf("repositories/%s/images", repo)
+	req, err := h.newRequest("GET", path, auth)
+	if err != nil {
+		return nil, err
+	}
+
+	return h.do(req)
+}
+
 // Retrieves a write-only token from the Docker Hub for the specified repo. The
 // auth argument should be the user's basic auth credentials.
 func (h *HubService) GetWriteToken(repo string, auth Authenticator) (*TokenAuth, error) {
