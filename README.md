@@ -1,5 +1,5 @@
 # docker-reg-client
-[![Build Status](https://api.shippable.com/projects/54dbd9785ab6cc13528ba2e0/badge?branchName=master)](https://app.shippable.com/projects/54dbd9785ab6cc13528ba2e0/builds/latest)
+[![Circle CI](https://circleci.com/gh/CenturyLinkLabs/docker-reg-client.svg?style=svg)](https://circleci.com/gh/CenturyLinkLabs/docker-reg-client)
 [![GoDoc](http://godoc.org/github.com/CenturyLinkLabs/docker-reg-client/registry?status.png)](http://godoc.org/github.com/CenturyLinkLabs/docker-reg-client/registry)
 
 docker-reg-client is an API wrapper for the [Docker Registry v1 API](https://docs.docker.com/reference/api/registry_api/) written in Go.
