@@ -30,3 +30,7 @@ For detailed documentation, see the [GoDocs](http://godoc.org/github.com/Century
 
       fmt.Printf("%#v", tags)
     }
+
+## Write token caveat
+
+Please note that the `GetWriteToken()` only works on **non automated build**s.
