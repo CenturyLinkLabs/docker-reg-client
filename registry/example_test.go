@@ -1,15 +1,13 @@
-package registry_test
+package registry
 
 import (
 	"bytes"
 	"fmt"
 	"net/url"
-
-	"github.com/CenturyLinkLabs/docker-reg-client/registry"
 )
 
 func ExampleRepositoryService_ListTags_dockerHub() {
-	c := registry.NewClient()
+	c := NewClient()
 	auth, err := c.Hub.GetReadToken("ubuntu")
 
 	tags, err := c.Repository.ListTags("ubuntu", auth)
@@ -23,9 +21,9 @@ func ExampleRepositoryService_ListTags_dockerHub() {
 }
 
 func ExampleRepositoryService_ListTags_privateRegistry() {
-	c := registry.NewClient()
+	c := NewClient()
 	c.BaseURL, _ = url.Parse("http://my.registry:8080/v1/")
-	auth := registry.BasicAuth{"user", "pass"}
+	auth := BasicAuth{"user", "pass"}
 
 	tags, err := c.Repository.ListTags("ubuntu", auth)
 	if err != nil {
@@ -38,9 +36,9 @@ func ExampleRepositoryService_ListTags_privateRegistry() {
 }
 
 func ExampleRepositoryService_DeleteTag_privateRegistry() {
-	c := registry.NewClient()
+	c := NewClient()
 	c.BaseURL, _ = url.Parse("http://my.registry:8080/v1/")
-	auth := registry.BasicAuth{"user", "pass"}
+	auth := BasicAuth{"user", "pass"}
 
 	err := c.Repository.DeleteTag("foo/bar", "1.0", auth)
 	if err != nil {
@@ -49,7 +47,7 @@ func ExampleRepositoryService_DeleteTag_privateRegistry() {
 }
 
 func ExampleRepositoryService_GetImageID_dockerHub() {
-	c := registry.NewClient()
+	c := NewClient()
 	auth, err := c.Hub.GetReadToken("ubuntu")
 
 	imageID, err := c.Repository.GetImageID("ubuntu", "latest", auth)
@@ -61,9 +59,9 @@ func ExampleRepositoryService_GetImageID_dockerHub() {
 }
 
 func ExampleRepositoryService_GetImageID_privateRegistry() {
-	c := registry.NewClient()
+	c := NewClient()
 	c.BaseURL, _ = url.Parse("http://my.registry:8080/v1/")
-	auth := registry.BasicAuth{"user", "pass"}
+	auth := BasicAuth{"user", "pass"}
 
 	imageID, err := c.Repository.GetImageID("ubuntu", "latest", auth)
 	if err != nil {
@@ -74,8 +72,8 @@ func ExampleRepositoryService_GetImageID_privateRegistry() {
 }
 
 func ExampleRepositoryService_Delete_dockerHub() {
-	c := registry.NewClient()
-	basicAuth := registry.BasicAuth{"user", "pass"}
+	c := NewClient()
+	basicAuth := BasicAuth{"user", "pass"}
 	tokenAuth, err := c.Hub.GetDeleteToken("foo/bar", basicAuth)
 
 	err = c.Repository.Delete("foo/bar", tokenAuth)
@@ -85,9 +83,9 @@ func ExampleRepositoryService_Delete_dockerHub() {
 }
 
 func ExampleRepositoryService_Delete_privateRegistry() {
-	c := registry.NewClient()
+	c := NewClient()
 	c.BaseURL, _ = url.Parse("http://my.registry:8080/v1/")
-	auth := registry.BasicAuth{"user", "pass"}
+	auth := BasicAuth{"user", "pass"}
 
 	err := c.Repository.Delete("foo/bar", auth)
 	if err != nil {
@@ -96,8 +94,8 @@ func ExampleRepositoryService_Delete_privateRegistry() {
 }
 
 func ExampleRepositoryService_SetTag_dockerHub() {
-	c := registry.NewClient()
-	basicAuth := registry.BasicAuth{"user", "pass"}
+	c := NewClient()
+	basicAuth := BasicAuth{"user", "pass"}
 	tokenAuth, err := c.Hub.GetWriteToken("foo/bar", basicAuth)
 
 	imageID := "2427658c75a1e3d0af0e7272317a8abfaee4c15729b6840e3c2fca342fe47bf1"
@@ -108,9 +106,9 @@ func ExampleRepositoryService_SetTag_dockerHub() {
 }
 
 func ExampleRepositoryService_SetTag_privateRegistry() {
-	c := registry.NewClient()
+	c := NewClient()
 	c.BaseURL, _ = url.Parse("http://my.registry:8080/v1/")
-	auth := registry.BasicAuth{"user", "pass"}
+	auth := BasicAuth{"user", "pass"}
 
 	imageID := "2427658c75a1e3d0af0e7272317a8abfaee4c15729b6840e3c2fca342fe47bf1"
 	err := c.Repository.SetTag("foo/bar", imageID, "1.0", auth)
@@ -120,7 +118,7 @@ func ExampleRepositoryService_SetTag_privateRegistry() {
 }
 
 func ExampleImageService_GetAncestry_dockerHub() {
-	c := registry.NewClient()
+	c := NewClient()
 	auth, err := c.Hub.GetReadToken("ubuntu")
 
 	images, err := c.Image.GetAncestry("ubuntu", auth)
@@ -134,9 +132,9 @@ func ExampleImageService_GetAncestry_dockerHub() {
 }
 
 func ExampleImageService_GetAncestry_privateRegistry() {
-	c := registry.NewClient()
+	c := NewClient()
 	c.BaseURL, _ = url.Parse("http://my.registry:8080/v1/")
-	auth := registry.BasicAuth{"user", "pass"}
+	auth := BasicAuth{"user", "pass"}
 
 	images, err := c.Image.GetAncestry("ubuntu", auth)
 	if err != nil {
@@ -149,7 +147,7 @@ func ExampleImageService_GetAncestry_privateRegistry() {
 }
 
 func ExampleImageService_GetMetadata_dockerHub() {
-	c := registry.NewClient()
+	c := NewClient()
 	auth, err := c.Hub.GetReadToken("ubuntu")
 
 	imageID := "2427658c75a1e3d0af0e7272317a8abfaee4c15729b6840e3c2fca342fe47bf1"
@@ -162,9 +160,9 @@ func ExampleImageService_GetMetadata_dockerHub() {
 }
 
 func ExampleImageService_GetMetadata_privateRegistry() {
-	c := registry.NewClient()
+	c := NewClient()
 	c.BaseURL, _ = url.Parse("http://my.registry:8080/v1/")
-	auth := registry.BasicAuth{"user", "pass"}
+	auth := BasicAuth{"user", "pass"}
 
 	imageID := "2427658c75a1e3d0af0e7272317a8abfaee4c15729b6840e3c2fca342fe47bf1"
 	meta, err := c.Image.GetMetadata(imageID, auth)
@@ -176,7 +174,7 @@ func ExampleImageService_GetMetadata_privateRegistry() {
 }
 
 func ExampleImageService_GetLayer_dockerHub() {
-	c := registry.NewClient()
+	c := NewClient()
 	auth, err := c.Hub.GetReadToken("ubuntu")
 
 	buffer := &bytes.Buffer{}
@@ -190,9 +188,9 @@ func ExampleImageService_GetLayer_dockerHub() {
 }
 
 func ExampleImageService_GetLayer_privateRegistry() {
-	c := registry.NewClient()
+	c := NewClient()
 	c.BaseURL, _ = url.Parse("http://my.registry:8080/v1/")
-	auth := registry.BasicAuth{"user", "pass"}
+	auth := BasicAuth{"user", "pass"}
 
 	buffer := &bytes.Buffer{}
 	imageID := "2427658c75a1e3d0af0e7272317a8abfaee4c15729b6840e3c2fca342fe47bf1"
@@ -205,7 +203,7 @@ func ExampleImageService_GetLayer_privateRegistry() {
 }
 
 func ExampleSearchService_Query_dockerHub() {
-	c := registry.NewClient()
+	c := NewClient()
 
 	results, err := c.Search.Query("mysql", 1, 25)
 	if err != nil {
@@ -218,7 +216,7 @@ func ExampleSearchService_Query_dockerHub() {
 }
 
 func ExampleSearchService_Query_privateRegistry() {
-	c := registry.NewClient()
+	c := NewClient()
 	c.BaseURL, _ = url.Parse("http://my.registry:8080/v1/")
 
 	results, err := c.Search.Query("mysql", 1, 25)
