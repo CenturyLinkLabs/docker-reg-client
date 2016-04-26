@@ -58,7 +58,13 @@ func (h *HubService) GetDeleteToken(repo string, auth Authenticator) (*TokenAuth
 }
 
 func (h *HubService) newRequest(method, urlStr string, auth Authenticator) (*http.Request, error) {
-	req, err := h.client.newRequest(method, urlStr, auth, nil)
+	var req *http.Request
+	var err error
+	if method == "GET" {
+		req, err = h.client.newRequest(method, urlStr, auth, nil)
+	} else {
+		req, err = h.client.newRequest(method, urlStr, auth, []string{})
+	}
 	if err != nil {
 		return nil, err
 	}
