@@ -6,6 +6,10 @@ docker-reg-client is an API wrapper for the [Docker Registry v1 API](https://doc
 
 For detailed documentation, see the [GoDocs](http://godoc.org/github.com/CenturyLinkLabs/docker-reg-client/registry).
 
+## NOTE
+
+This repo is no longer being maintained. Users are welcome to fork it, but we make no warranty of its functionality.
+
 ## Example
 
     package main
